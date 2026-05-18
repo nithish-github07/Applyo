@@ -38,16 +38,22 @@ export const recentApplications = async (req,res) => {
         
         const jobIds = jobs.map(job => job._id);
 
-        const applications = await Application.find({
+        const limit = req.query.limit ? parseInt(req.query.limit) : 5;
+        const query = Application.find({
             job: {$in: jobIds}
         })
-            .populate("applicant","name email")
-            .populate("job","title company")
-            .sort({createdAt: -1})
-            .limit(5);
+            .populate("applicant","name email resumeUrl")
+            .populate("job","title company location jobType")
+            .sort({createdAt: -1});
 
+        if (limit > 0) {
+            query.limit(limit);
+        }
+
+        const applications = await query;
         res.json(applications);
     }catch(error){
+        console.error("Error fetching recent applications:", error);
         res.status(500).json({ message: "Error fetching recent applications" });
     }
 };

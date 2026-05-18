@@ -506,44 +506,47 @@ const Profile = () => {
                         )}
                     </form>
 
-                    <div className="divider"></div>
+                    {user?.role?.toLowerCase() === 'jobseeker' && (
+                        <>
+                            <div className="divider"></div>
+                            <div className="custom-section">
+                                <h3 className="custom-section-heading">Manage Resume</h3>
+                                <div className="info-row">
+                                    <div className="icon-circle">
+                                        <FiFileText />
+                                    </div>
+                                    <div className="info-text-main">
+                                        <span className="info-text-title">Current Resume</span>
+                                        {user.resumeUrl ? (
+                                            <a href={user.resumeUrl} target="_blank" rel="noopener noreferrer" className="info-text-sub link">
+                                                View Resume
+                                            </a>
+                                        ) : (
+                                            <span className="info-text-sub">No resume uploaded yet</span>
+                                        )}
+                                    </div>
+                                </div>
 
-                    <div className="custom-section">
-                        <h3 className="custom-section-heading">Manage Resume</h3>
-                        <div className="info-row">
-                            <div className="icon-circle">
-                                <FiFileText />
+                                <div className="file-upload-row">
+                                    <input
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        ref={fileInputRef}
+                                        accept=".pdf,.doc,.docx"
+                                        className="file-upload-input"
+                                    />
+                                    <button
+                                        onClick={handleResumeUpload}
+                                        className="btn-light"
+                                        disabled={!resumeFile}
+                                        type="button"
+                                    >
+                                        + Upload new
+                                    </button>
+                                </div>
                             </div>
-                            <div className="info-text-main">
-                                <span className="info-text-title">Current Resume</span>
-                                {user.resumeUrl ? (
-                                    <a href={user.resumeUrl} target="_blank" rel="noopener noreferrer" className="info-text-sub link">
-                                        View Resume
-                                    </a>
-                                ) : (
-                                    <span className="info-text-sub">No resume uploaded yet</span>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="file-upload-row">
-                            <input
-                                type="file"
-                                onChange={handleFileChange}
-                                ref={fileInputRef}
-                                accept=".pdf,.doc,.docx"
-                                className="file-upload-input"
-                            />
-                            <button
-                                onClick={handleResumeUpload}
-                                className="btn-light"
-                                disabled={!resumeFile}
-                                type="button"
-                            >
-                                + Upload new
-                            </button>
-                        </div>
-                    </div>
+                        </>
+                    )}
 
                     <div className="divider"></div>
 

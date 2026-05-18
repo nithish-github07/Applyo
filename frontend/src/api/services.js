@@ -47,8 +47,8 @@ export const savedJobAPI = {
 // ─── Dashboard ─────────────────────────────────────────
 export const dashboardAPI = {
   recruiterStats: () => api.get("/dashboard/recruiter/stats"),
-  recruiterRecentApplications: () =>
-    api.get("/dashboard/recruiter/recent-applications"),
+  recruiterRecentApplications: (limit) =>
+    api.get("/dashboard/recruiter/recent-applications", { params: { limit } }),
   userStats: () => api.get("/dashboard/user/stats"),
   userSavedJobs: () => api.get("/dashboard/user/saved-jobs"),
 };
