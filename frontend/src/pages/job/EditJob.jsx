@@ -212,6 +212,33 @@ const editJobStyles = `
             padding: 32px 24px;
         }
     }
+
+    @media (max-width: 600px) {
+        .edit-job-overlay {
+            padding: 0;
+        }
+        .edit-job-modal {
+            border-radius: 0;
+            min-height: 100vh;
+            max-width: 100%;
+            padding: 24px 16px;
+        }
+        .modal-title {
+            font-size: 1.6rem;
+        }
+        .close-btn {
+            top: 16px;
+            right: 16px;
+        }
+        .footer-actions {
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn-cancel, .btn-save {
+            width: 100%;
+            justify-content: center;
+        }
+    }
 `;
 
 const EditJob = React.memo(() => {

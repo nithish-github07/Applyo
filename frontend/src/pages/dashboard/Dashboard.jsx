@@ -524,6 +524,24 @@ const dashboardStyles = `
             grid-template-columns: 1fr;
         }
     }
+
+    @media (max-width: 500px) {
+        .dashboard-container {
+            padding: 16px;
+        }
+        .banner {
+            padding: 24px;
+        }
+        .banner-name {
+            font-size: 1.85rem;
+        }
+        .section-container {
+            padding: 16px;
+        }
+        .rec-job-card {
+            padding: 16px;
+        }
+    }
 `;
 
 export default function Dashboard() {
@@ -564,9 +582,9 @@ export default function Dashboard() {
                 const jobsRes = await jobAPI.getAll();
                 const jobsList = jobsRes.data || [];
                 if (isRecruiter) {
-                    setRecJobs(jobsList.slice(0, 4));
+                    setRecJobs(jobsList.slice(0, 3));
                 } else {
-                    setRecJobs(jobsList.slice(0, 4));
+                    setRecJobs(jobsList.slice(0, 3));
                 }
 
             } catch (err) {

@@ -174,16 +174,40 @@ const myApplicationsStyles = `
 
     @media (max-width: 900px) {
         .app-info {
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-        .posted-info {
+            flex-direction: column;
             align-items: flex-start;
-            text-align: left;
+            gap: 16px;
+            width: 100%;
+        }
+        .right-metadata {
+            align-items: flex-start;
+            min-width: unset;
+            margin-right: 0;
+            gap: 4px;
         }
         .app-card {
             flex-direction: column;
             align-items: flex-start;
+            padding: 16px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .applications-container {
+            padding: 16px;
+        }
+        .page-header {
+            margin-bottom: 24px;
+        }
+        .page-title {
+            font-size: 1.6rem;
+        }
+        .company-row {
+            flex-wrap: wrap;
+            gap: 6px 8px;
+        }
+        .dot {
+            display: none;
         }
     }
 `;

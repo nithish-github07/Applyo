@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
-    FiGrid, FiBriefcase, FiFileText, FiBookmark, FiLogOut, FiUser, FiPlusSquare 
+    FiGrid, FiBriefcase, FiFileText, FiBookmark, FiLogOut, FiUser, FiPlusSquare, FiMenu
 } from 'react-icons/fi';
 import logo from '../../assets/applyo-logo.png';
+import icon from "../../assets/applyo-icon.png";
 
 const Sidebar = () => {
     const { user, logout } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
+    
+    const [isCollapsed, setIsCollapsed] = useState(() => {
+        return localStorage.getItem("sidebar_collapsed") === "true";
+    });
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+    const toggleCollapse = () => {
+        const newValue = !isCollapsed;
+        setIsCollapsed(newValue);
+        localStorage.setItem("sidebar_collapsed", String(newValue));
+    };
+
+    const toggleMobileOpen = () => {
+        setIsMobileOpen(!isMobileOpen);
+    };
+
+    useEffect(() => {
+        setIsMobileOpen(false);
+    }, [location.pathname]);
     
     const hideOn = ["/login", "/register"];
     if (!user || hideOn.includes(location.pathname)) {
@@ -77,11 +97,50 @@ const Sidebar = () => {
             position: sticky;
             top: 0;
             height: 100vh;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+            padding: 32px 12px;
+            align-items: center;
         }
 
         .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 40px;
             padding: 0 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            flex-direction: column;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        .collapse-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #667085;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 1.25rem;
+        }
+        
+        .collapse-toggle-btn:hover {
+            background-color: #F9FAFB;
+            color: #101828;
         }
 
         .sidebar-logo {
@@ -90,44 +149,11 @@ const Sidebar = () => {
             object-fit: contain;
         }
 
-        .sidebar-user {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            background: #F9FAFB;
-            border-radius: 16px;
-            margin-bottom: 32px;
-            gap: 12px;
-        }
-
-        .user-profile-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 2px solid #FFFFFF;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .user-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #101828;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .user-role {
-            font-size: 0.8rem;
-            color: #667085;
-            text-transform: capitalize;
+        .sidebar-logo-icon {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .sidebar-nav {
@@ -186,6 +212,16 @@ const Sidebar = () => {
             color: #2563EB;
         }
 
+        .sidebar.collapsed .nav-title {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 12px;
+            gap: 0;
+        }
+
         .logout-btn-nav {
             width: 100%;
             background: none;
@@ -204,6 +240,83 @@ const Sidebar = () => {
             color: #D92D20 !important;
         }
 
+        /* Responsive Mobile Styles */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #EAECF0;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 999;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #475467;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .mobile-logo {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .mobile-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(16, 24, 40, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                height: 100vh;
+                transform: translateX(-100%);
+                z-index: 1000;
+                width: 280px !important;
+                padding: 24px 20px !important;
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            main {
+                padding-top: 60px;
+            }
+
+            .collapse-toggle-btn {
+                display: none;
+            }
+        }
+
         /* Hide scrollbar */
         .sidebar-nav::-webkit-scrollbar {
             display: none;
@@ -213,28 +326,36 @@ const Sidebar = () => {
     return (
         <>
             <style>{styles}</style>
-            <aside className="sidebar">
-                <div className="sidebar-header">
-                    <img src={logo} alt="Applyo Logo" className="sidebar-logo" />
-                </div>
+            
+            {/* Mobile Top Header */}
+            <div className="mobile-header">
+                <button onClick={toggleMobileOpen} className="mobile-menu-btn" title="Open Menu">
+                    <FiMenu />
+                </button>
+                <img src={logo} alt="Applyo Logo" className="mobile-logo" />
+                <div style={{ width: 40 }}></div>
+            </div>
 
-                <div className="sidebar-user">
-                    <img 
-                        src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}&background=2563eb&color=fff&size=128`} 
-                        alt="Avatar" 
-                        className="user-profile-avatar" 
-                    />
-                    <div className="user-info">
-                        <span className="user-name">{user.name}</span>
-                        <span className="user-role">{user.role}</span>
-                    </div>
+            {/* Backdrop for mobile menu */}
+            {isMobileOpen && <div className="mobile-backdrop" onClick={toggleMobileOpen}></div>}
+
+            <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
+                <div className="sidebar-header">
+                    {isCollapsed ? (
+                        <img src={icon} alt="Applyo Icon" className="sidebar-logo-icon" />
+                    ) : (
+                        <img src={logo} alt="Applyo Logo" className="sidebar-logo" />
+                    )}
+                    <button onClick={toggleCollapse} className="collapse-toggle-btn" title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}>
+                        <FiMenu />
+                    </button>
                 </div>
 
                 <nav className="sidebar-nav">
                     {menuItems.map((section, index) => (
                         (section.role === user.role || !section.role) && (
                             <div className="nav-section" key={index}>
-                                <h3 className="nav-title">{section.title}</h3>
+                                {!isCollapsed && <h3 className="nav-title">{section.title}</h3>}
                                 {section.items.map((item, idx) => (
                                     item.roles.includes(user.role) && (
                                         item.type === "button" ? (
@@ -242,18 +363,20 @@ const Sidebar = () => {
                                                 key={idx}
                                                 onClick={item.onClick} 
                                                 className={`nav-link ${item.className || ''}`}
+                                                title={isCollapsed ? item.name : ''}
                                             >
                                                 {item.icon}
-                                                <span>{item.name}</span>
+                                                {!isCollapsed && <span>{item.name}</span>}
                                             </button>
                                         ) : (
                                             <Link 
                                                 to={item.path} 
                                                 className={`nav-link ${location.pathname === item.path ? 'active' : ''}`} 
                                                 key={item.path}
+                                                title={isCollapsed ? item.name : ''}
                                             >
                                                 {item.icon}
-                                                <span>{item.name}</span>
+                                                {!isCollapsed && <span>{item.name}</span>}
                                             </Link>
                                         )
                                     )

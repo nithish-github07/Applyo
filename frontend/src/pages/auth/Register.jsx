@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaGoogle } from 'react-icons/fa';
+import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { authAPI} from '../../api/services';
 import logo from '../../assets/applyo-logo.png';
 
@@ -11,6 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('jobSeeker');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
 
@@ -134,6 +135,36 @@ const Register = () => {
         border-radius: 8px;
         box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
         box-sizing: border-box;
+    }
+
+    .password-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .password-input-wrapper input {
+        padding-right: 40px;
+    }
+
+    .password-toggle-icon {
+        position: absolute;
+        right: 12px;
+        color: #667085;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+    }
+    
+    .password-toggle-icon:hover {
+        color: #344054;
     }
 
     .role-selection {
@@ -308,11 +339,24 @@ const Register = () => {
               </div>
               <div className="input-group">
                 <label htmlFor="password">Password *</label>
-                <input
-                  type="password" id="password" value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required placeholder="Create a password"
-                />
+                <div className="password-input-wrapper">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder="Create a password"
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle-icon"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
               <div className="role-selection">
                 <label>You are a...</label>

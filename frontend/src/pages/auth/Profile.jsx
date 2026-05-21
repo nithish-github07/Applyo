@@ -320,6 +320,68 @@ const profileStyles = `
         background-color: #fee2e2;
         color: #991b1b;
     }
+
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+        .profile-header-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+            padding: 0 24px;
+        }
+        .profile-user-info {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+        .profile-text-info {
+            padding-top: 0;
+        }
+        .profile-form {
+            padding: 0 24px 20px 24px;
+        }
+        .custom-section {
+            padding: 0 24px 24px 24px;
+        }
+        .divider {
+            margin: 20px 24px 24px 24px;
+        }
+        .global-message {
+            margin: 0 24px 20px 24px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .profile-container {
+            padding: 16px;
+        }
+        .profile-card {
+            border-radius: 8px;
+        }
+        .profile-header-content {
+            padding: 0 16px;
+        }
+        .profile-form {
+            padding: 0 16px 20px 16px;
+        }
+        .custom-section {
+            padding: 0 16px 20px 16px;
+        }
+        .divider {
+            margin: 20px 16px 20px 16px;
+        }
+        .global-message {
+            margin: 0 16px 20px 16px;
+        }
+        .file-upload-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+    }
 `;
 
 const getAuthToken = () => {

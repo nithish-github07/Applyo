@@ -200,6 +200,15 @@ const createJobStyles = `
             max-width: 100%;
         }
     }
+
+    @media (max-width: 500px) {
+        .create-job-container {
+            padding: 16px;
+        }
+        .page-title {
+            font-size: 1.6rem;
+        }
+    }
 `;
 
 const CreateJob = () => {

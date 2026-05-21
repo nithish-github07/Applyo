@@ -160,7 +160,7 @@ const SavedJobs = () => {
 
                 .jobs-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                     gap: 24px;
                 }
 
@@ -308,6 +308,33 @@ const SavedJobs = () => {
 
                 .btn-explore:hover {
                     background-color: #1D4ED8;
+                }
+
+                @media (max-width: 768px) {
+                    .header-top {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 16px;
+                    }
+                    .search-bar {
+                        max-width: 100%;
+                    }
+                }
+
+                @media (max-width: 500px) {
+                    .job-list-container {
+                        padding: 16px;
+                    }
+                    .page-title {
+                        font-size: 1.6rem;
+                    }
+                    .page-subtitle {
+                        margin-top: 0;
+                        font-size: 0.9rem;
+                    }
+                    .job-card {
+                        padding: 16px;
+                    }
                 }
             `}</style>
 

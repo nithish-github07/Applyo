@@ -32,7 +32,7 @@ const AppRoutes = () => {
     <>
       <Routes location={background || location}>
         {/* Public Routes */}
-        <Route path="/" element={<Navigate to="/jobs" />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/jobs" element={<JobList />} />

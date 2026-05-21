@@ -340,6 +340,48 @@ const jobApplicantsStyles = `
             padding-top: 16px;
         }
     }
+
+    @media (max-width: 500px) {
+        .applicants-page-container {
+            padding: 16px;
+        }
+        .page-title {
+            font-size: 1.6rem;
+        }
+        .search-bar {
+            max-width: 100%;
+            width: 100%;
+        }
+        .status-tabs {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 0.8rem;
+        }
+        .applicant-profile {
+            flex-direction: column;
+            gap: 12px;
+        }
+        .avatar-placeholder {
+            width: 48px;
+            height: 48px;
+            font-size: 1.25rem;
+        }
+        .action-area {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .btn-actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
 `;
 
 export default function JobApplicants() {

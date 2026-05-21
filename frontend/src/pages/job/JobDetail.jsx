@@ -343,6 +343,33 @@ const jobDetailStyles = `
             display: none;
         }
     }
+
+    @media (max-width: 600px) {
+        .job-detail-overlay {
+            padding: 0;
+        }
+        .job-detail-modal {
+            border-radius: 0;
+            min-height: 100vh;
+            max-width: 100%;
+        }
+        .main-content {
+            padding: 24px;
+            max-height: 100vh;
+        }
+        .job-title-row {
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .job-title-detail {
+            font-size: 1.75rem;
+        }
+        .close-btn {
+            top: 16px;
+            right: 16px;
+        }
+    }
 `;
 
 const JobDetail = () => {
