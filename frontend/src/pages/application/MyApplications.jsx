@@ -145,6 +145,10 @@ const myApplicationsStyles = `
     .status-rejected { background: #FEE2E2; color: #991B1B; }
 
     .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         padding: 80px 0;
         background: #F9FAFB;

@@ -160,7 +160,7 @@ const SavedJobs = () => {
 
                 .jobs-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
                     gap: 24px;
                 }
 
@@ -174,6 +174,8 @@ const SavedJobs = () => {
                     display: flex;
                     flex-direction: column;
                     position: relative;
+                    aspect-ratio: 1 / 1;
+                    min-height: 320px;
                 }
 
                 .job-card:hover {
@@ -246,7 +248,7 @@ const SavedJobs = () => {
                     line-height: 1.6;
                     margin-bottom: 20px;
                     display: -webkit-box;
-                    -webkit-line-clamp: 3;
+                    -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                 }
@@ -254,6 +256,8 @@ const SavedJobs = () => {
                 .skills-tags {
                     display: flex;
                     flex-wrap: wrap;
+                    align-items: flex-start;
+                    align-content: flex-start;
                     gap: 8px;
                     margin-bottom: 24px;
                     flex-grow: 1;
@@ -334,6 +338,8 @@ const SavedJobs = () => {
                     }
                     .job-card {
                         padding: 16px;
+                        aspect-ratio: auto;
+                        min-height: auto;
                     }
                 }
             `}</style>

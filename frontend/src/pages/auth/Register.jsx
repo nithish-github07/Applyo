@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { authAPI} from '../../api/services';
+import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/applyo-logo.png';
 
 
@@ -13,6 +14,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
 
   const handleRegister = async (e) => {
@@ -27,7 +29,8 @@ const Register = () => {
         });
 
         if(response.status === 201){
-            navigate('/login');
+            await login({ email, password });
+            navigate('/dashboard');
         }
     } catch(error){
         if(error.response && error.response.data && error.response.data.message){
@@ -37,7 +40,7 @@ const Register = () => {
             setError('Registration failed. Please try again.');
         }
 
-        console.error('Registration error: ',err);
+        console.error('Registration error: ', error);
     }
   };
 
