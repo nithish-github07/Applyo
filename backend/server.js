@@ -35,13 +35,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
+app.set("trust proxy", 1);
+
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    message: {
-        message: "Too many requests, please try again later",
-    },
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  trustProxy: true,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    message: "Too many requests, please try again later"
+  }
 });
+
 
 app.use("/api", limiter);
 app.use("/api/auth", authRoutes);
